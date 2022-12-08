@@ -1,0 +1,12 @@
+query Tweets {
+  tweets {
+    id
+    createdAt
+    updatedAt
+    text
+    userId
+    # user {
+    #   name
+    # }
+  }
+}
