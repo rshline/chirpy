@@ -32,6 +32,10 @@ export class User extends BaseEntity {
   @Column()
   password!: string;
 
+  @Field()
+  @Column({ nullable: true })
+  profileImg: string;
+
   @OneToMany(() => Tweet, (tweet) => tweet.user)
   tweets: Tweet[];
 

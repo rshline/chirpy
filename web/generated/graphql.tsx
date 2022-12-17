@@ -103,6 +103,7 @@ export type User = {
   email: Scalars['String'];
   id: Scalars['Float'];
   name: Scalars['String'];
+  profileImg: Scalars['String'];
   updatedAt: Scalars['String'];
   username: Scalars['String'];
 };
@@ -115,9 +116,9 @@ export type UserResponse = {
 
 export type RegularErrorFragment = { __typename?: 'FieldError', field: string, message: string };
 
-export type RegularUserFragment = { __typename?: 'User', id: number, name: string, username: string };
+export type RegularUserFragment = { __typename?: 'User', id: number, name: string, username: string, profileImg: string };
 
-export type RegularUserResponseFragment = { __typename?: 'UserResponse', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null, user?: { __typename?: 'User', id: number, name: string, username: string } | null };
+export type RegularUserResponseFragment = { __typename?: 'UserResponse', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null, user?: { __typename?: 'User', id: number, name: string, username: string, profileImg: string } | null };
 
 export type ChangePasswordMutationVariables = Exact<{
   token: Scalars['String'];
@@ -125,7 +126,7 @@ export type ChangePasswordMutationVariables = Exact<{
 }>;
 
 
-export type ChangePasswordMutation = { __typename?: 'Mutation', changePassword: { __typename?: 'UserResponse', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null, user?: { __typename?: 'User', id: number, name: string, username: string } | null } };
+export type ChangePasswordMutation = { __typename?: 'Mutation', changePassword: { __typename?: 'UserResponse', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null, user?: { __typename?: 'User', id: number, name: string, username: string, profileImg: string } | null } };
 
 export type CreateTweetMutationVariables = Exact<{
   input: TweetInput;
@@ -147,7 +148,7 @@ export type LoginMutationVariables = Exact<{
 }>;
 
 
-export type LoginMutation = { __typename?: 'Mutation', login: { __typename?: 'UserResponse', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null, user?: { __typename?: 'User', id: number, name: string, username: string } | null } };
+export type LoginMutation = { __typename?: 'Mutation', login: { __typename?: 'UserResponse', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null, user?: { __typename?: 'User', id: number, name: string, username: string, profileImg: string } | null } };
 
 export type LogoutMutationVariables = Exact<{ [key: string]: never; }>;
 
@@ -159,17 +160,17 @@ export type RegisterMutationVariables = Exact<{
 }>;
 
 
-export type RegisterMutation = { __typename?: 'Mutation', register: { __typename?: 'UserResponse', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null, user?: { __typename?: 'User', id: number, name: string, username: string } | null } };
+export type RegisterMutation = { __typename?: 'Mutation', register: { __typename?: 'UserResponse', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null, user?: { __typename?: 'User', id: number, name: string, username: string, profileImg: string } | null } };
 
 export type MeQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type MeQuery = { __typename?: 'Query', me?: { __typename?: 'User', id: number, name: string, username: string } | null };
+export type MeQuery = { __typename?: 'Query', me?: { __typename?: 'User', id: number, name: string, username: string, profileImg: string } | null };
 
 export type TweetsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type TweetsQuery = { __typename?: 'Query', tweets?: Array<{ __typename?: 'Tweet', id: number, createdAt: string, updatedAt: string, text: string, userId: number }> | null };
+export type TweetsQuery = { __typename?: 'Query', tweets?: Array<{ __typename?: 'Tweet', id: number, createdAt: string, updatedAt: string, text: string, userId: number, user: { __typename?: 'User', id: number, name: string, username: string, profileImg: string } }> | null };
 
 export const RegularErrorFragmentDoc = gql`
     fragment RegularError on FieldError {
@@ -182,6 +183,7 @@ export const RegularUserFragmentDoc = gql`
   id
   name
   username
+  profileImg
 }
     `;
 export const RegularUserResponseFragmentDoc = gql`
@@ -280,9 +282,12 @@ export const TweetsDocument = gql`
     updatedAt
     text
     userId
+    user {
+      ...RegularUser
+    }
   }
 }
-    `;
+    ${RegularUserFragmentDoc}`;
 
 export function useTweetsQuery(options?: Omit<Urql.UseQueryArgs<TweetsQueryVariables>, 'query'>) {
   return Urql.useQuery<TweetsQuery, TweetsQueryVariables>({ query: TweetsDocument, ...options });

@@ -6,7 +6,8 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   BaseEntity,
-  ManyToOne
+  ManyToOne,
+  JoinColumn
 } from "typeorm";
 import { User } from "./User";
 
@@ -26,7 +27,8 @@ export class Tweet extends BaseEntity {
   userId: number;
 
   @Field()
-  @ManyToOne(() => User, (user) => user.tweets)
+  @ManyToOne(() => User, (user) => user.tweets, {eager: true})
+  @JoinColumn({ name: "userId", referencedColumnName: "id" })
   user: User;
 
   @Field(() => String)

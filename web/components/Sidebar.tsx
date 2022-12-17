@@ -38,7 +38,6 @@ function Sidebar() {
             onClick={() => logout}
             Icon={ArrowRightOnRectangleIcon} 
             />    
-            <p>{data.me.name}</p>   
           </>        
         )
       }
@@ -46,15 +45,20 @@ function Sidebar() {
   }, [])
 
   return (
-    <div className='flex flex-col items-center px-2 md:items-start lg:ml-8'>
-      <img className='m-3 h-10 w-10' src='https://ra.ac.ae/wp-content/uploads/2020/01/logo-twitter-icon-symbol-0.png' alt='' />
-      <SidebarRow Icon={HomeIcon} />
+    <div className='flex flex-col items-center px-2 md:items-start lg:ml-8 h-screen justify-between'>
+      <div>
+        <img className='m-3 h-10 w-10' src='https://ra.ac.ae/wp-content/uploads/2020/01/logo-twitter-icon-symbol-0.png' alt='' />
+        <SidebarRow Icon={HomeIcon} />        
+      </div>
+
       {/* <SidebarRow 
         onClick={data?.me ? () => logout : () => login}
         Icon={data?.me ? ArrowRightOnRectangleIcon : ArrowLeftOnRectangleIcon} 
       />
       <h1>{data? ? data.me.name : "login"}</h1> */}
-      {body}
+      <div className='mb-5'>
+        {body}
+      </div>
     </div>
   )
 }

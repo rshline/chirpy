@@ -54,6 +54,10 @@ function Register() {
                 </button>
             </Form>
         </Formik>
+        <div>
+          <p>Already have an account? <span className='text-twitter cursor-pointer' onClick={() => router.replace("/login")}>Sign In</span>
+          </p>
+        </div>
     </div>
   )
 }

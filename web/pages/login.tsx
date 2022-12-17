@@ -22,7 +22,6 @@ function Login() {
                 if (typeof router.query.next === "string") {
                   router.push(router.query.next);
                 } else {
-                  // worked
                   router.push("/");
                 }
               }
@@ -46,6 +45,10 @@ function Login() {
                 </button>
             </Form>
         </Formik>
+        <div>
+          <p>Don't have an account? <span className='text-twitter cursor-pointer' onClick={() => router.replace("/register")}>Sign Up</span>
+          </p>
+        </div>
     </div>
   )
 }

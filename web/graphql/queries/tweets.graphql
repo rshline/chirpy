@@ -5,8 +5,8 @@ query Tweets {
     updatedAt
     text
     userId
-    # user {
-    #   name
-    # }
+    user {
+      ...RegularUser
+    }
   }
 }
